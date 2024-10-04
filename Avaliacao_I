@@ -1,0 +1,56 @@
+    Neste projeto, o aluno deve escrever um programa que simule o uso de uma aplica��o da vida real,
+a exemplo do https://www.magazineluiza.com.br/.
+Cada estudante deve selecionar uma aplica��o distinta de seu interesse.
+
+    Os seguintes elementos devem estar presentes no programa:
+    1. Realizar Login:
+o programa deve requisitar o nome do usu�rio e a senha e informar se o usu�rio pode ou n�o acessar o sistema
+(o login e senha podem vir pr�-definidos no programa). Enquanto o usu�rio fornecer informa��es incorretas de
+nome de usu�rio ou de senha, solicite o nome de usu�rio e senha novamente.
+Opcionalmente, voc� pode primeiro cadastrar o login e senha correta para n�o ficar limitada a valores
+pr�-definidos como no exemplo acima.
+
+    2. Verifica��o de validade de e-mail:
+o programa deve permitir que se verifique a validade do e-mail de um usu�rio. Para ser v�lido, o e-mail precisa
+conter o caractere @ e a quantidade de caracteres dele precisa se menor que 80. Al�m disso, para ser v�lido, N�O
+pode haver outro e-mail cadastrado no sistema com o mesmo valor.
+
+    3. Mensagem de boas vindas:
+o programa deve apresentar uma mensagem de boas-vindas para o usu�rio. A mensagem de boas-vindas deve estar
+relacionado ao tema da aplica��o/projeto escolhido pelo aluno.
+
+    4. Apresentar menu de opções:
+o programa deve apresentar um menu de possibilidades para o usuário. Leia um número referente a opção selecionada
+por ele e realize os procedimentos correspondente a opção selecionada.
+
+    5. Operação básicas sobre itens:
+o programa deve possibilitar as quatro operações básicas (cadastrar, listar, editar e excluir) sobre pelo menos
+1 (um) item do programa.
+
+    6. Realize operações sobre os itens:
+o programa deve permitir que se realize operações sobre os itens relacionados à aplicação. Por exemplo, para uma
+aplicação de compras, o programa pode listar os itens que estão em promoção. O programa deve apresentar pelo menos
+5 operações sobre os itens específicos da aplicação escolhida.
+
+    7. Quantidade de opções:
+o menu deve apresentar pelos menus 5 (cinco opções) além das operações básicas. Cada opção do menu deve ter suas
+funcionalidades implementadas.
+
+    AVALIAÇÃO
+Na avaliação serão considerados os critérios seguintes:
+    1. Completude de elementos da linguagem C: o programa apresenta os elementos estudados em sala de aula
+    (ponteiros, estruturas).
+
+    2. Originalidade: o programa implementado é original e apresenta elementos que o distingue dos demais programas
+    enviados pelos demais estudantes.
+
+    3. Funcionalidades: o programa implementado apresenta número de funcionalidades relevantes para um sistema de
+    software.
+
+    4. Estética: Qualidade do código escrito.
+
+    5. Diversidade: uso de diferentes estruturas na implementação das funcionalidades.
+
+    6. Complexidade: exploração da lógica de programação na resolução dos problemas.
+
+    7. Uso de funções: as funcionalidades da aplicação devem ser feitas dentro de funções.
