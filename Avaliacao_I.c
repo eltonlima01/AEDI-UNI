@@ -13,9 +13,9 @@ int main(){
     int validarusername(struct usuario user[], char usernametmp[]);
     int validaremail(struct usuario user[], char emailtmp[]);
     int validarsenha(struct usuario user[], char senhatmp[]);
-//Login e senha prÈ-definidos do programa:
-    strcpy(user[0].nome, "Elton Caio Vieira de Lima"); strcpy(user[0].username, "setocaio");
-    strcpy(user[0].email, "elton.lima@alunos.ufersa.edu.br"); strcpy(user[0].senha, "0123456789");
+//Login e senha pr√©-definidos do programa:
+    strcpy(user[0].nome, "Elton Caio Vieira de Lima"); strcpy(user[0].username, "eltonlima");
+    strcpy(user[0].email, "elton@lima"); strcpy(user[0].senha, "0123456789");
     strcpy(user[1].nome, "Fulano"); strcpy(user[1].username, "fulanoa");
     strcpy(user[1].email, "fulano@fulano"); strcpy(user[1].senha, "fulano123");
     strcpy(user[2].nome, "Sicrano"); strcpy(user[2].username, "sicranoz");
@@ -23,7 +23,7 @@ int main(){
     short int opcao;
     char usernametmp[80], emailtmp[80], senhatmp[80];
     do{
-        puts("[SISTEMA]\n1 - Realizar Login\n2 - VerificaÁ„o de validade de e-mail\n0 - Sair");
+        puts("[SISTEMA]\n1 - Realizar Login\n2 - Verifica√ß√£o de validade de e-mail\n0 - Sair");
         scanf("%hi", &opcao); flush_input();
         switch(opcao){
             case 1:
@@ -42,13 +42,13 @@ int main(){
             case 2:
             printf("2. Digite o e-mail: "); scanf("%79[^\n]", emailtmp); flush_input();
             if(validaremail(user, emailtmp)==2){
-                puts("[EMAIL INV¡LIDO!]\nAusÍncia de caractere '@'.");
+                puts("[EMAIL INV√ÅLIDO!]\nAus√™ncia de caractere '@'.");
                 break;
             }else if(validaremail(user, emailtmp)==1){
-                puts("[E-MAIL J¡ EM USO!]");
+                puts("[E-MAIL J√Å EM USO!]");
                 break;
             }else if(validaremail(user, emailtmp)==0){
-                puts("[E-MAIL DISPONÕVEL!]");
+                puts("[E-MAIL DISPON√çVEL!]");
                 break;
             }
             break;
