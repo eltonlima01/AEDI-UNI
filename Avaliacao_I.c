@@ -6,10 +6,17 @@ void flush_input();
 struct usuario{
     char nome[80], username[80], email[80], senha[80];
 };
+struct produto{
+    char nomeproduto[80], codigo[4];
+    float preco;
+};
 short int n;
+int produto_a_editar;
+int quantidade_de_produtos=3;
 int main(){
     setlocale(LC_ALL,"");
-    struct usuario *user=(struct usuario*)malloc(3*sizeof(struct usuario));
+    struct usuario *user=(struct usuario*)malloc(quantidade_de_produtos*sizeof(struct usuario));
+    struct produto *product=(struct produto*)malloc(3*sizeof(struct produto));
     int validarusername(struct usuario user[], char usernametmp[]);
     int validaremail(struct usuario user[], char emailtmp[]);
     int validarsenha(struct usuario user[], char senhatmp[]);
@@ -20,7 +27,7 @@ int main(){
     strcpy(user[1].email, "fulano@fulano"); strcpy(user[1].senha, "fulano123");
     strcpy(user[2].nome, "Sicrano"); strcpy(user[2].username, "sicranoz");
     strcpy(user[2].email, "sicrano@sicrano"); strcpy(user[2].senha, "sicrano123");
-    short int opcao;
+    short int opcao, op;
     char usernametmp[80], emailtmp[80], senhatmp[80];
     do{
         puts("[SISTEMA]\n1 - Realizar Login\n2 - Verificação de validade de e-mail\n0 - Sair");
@@ -38,6 +45,55 @@ int main(){
                 break;
             }
             printf("[LOGIN BEM SUCEDIDO!]\nBem vindo %s!\n", user[n].nome);
+//Menu interno:
+//Produtos pré-cadastrados do programa:
+            strcpy(product[0].nomeproduto, "Frasco de Estus"); strcpy(product[0].codigo, "0000"); product[0].preco=15;
+            strcpy(product[1].nomeproduto, "Frasco de Estus das Cinzas"); strcpy(product[1].codigo, "0001"); product[1].preco=15;
+            strcpy(product[2].nomeproduto, "Bênção Divina"); strcpy(product[2].codigo, "0010"); product[2].preco=8000;
+            int verificar_produto(struct produto product[], char codigo[]); short int op0;
+            char codigotmp[4], editnome[80]; float editpreco;
+            do{
+                puts("[SISTEMA]\n1 - Cadastrar\n2 - Listar\n3 - Editar\n4 - Excluir\n0 - Sair");
+                scanf("%hi", &op); flush_input();
+                switch(op){
+                    case 1:
+                    break;
+                    case 2:
+                    puts("[LISTA DE PRODUTOS]");
+                    for(int i=0; i<quantidade_de_produtos; i++){
+                        printf("[PRODUTO]: %s - [CÓDIGO]: %s - [PREÇO]: R$%.2f\n", product[i].nomeproduto, product[i].codigo, product[i].preco);
+                    }
+                    system("pause");
+                    break;
+                    case 3:
+                    puts("3. Digite o código do produto que deseja editar:");
+                    scanf("%4[^\n]", codigotmp); flush_input();
+                    if(verificar_produto(product, codigotmp)!=0){
+                        puts("[CÓDIGO INVÁLIDO!]");
+                        break;
+                    }else{
+                        puts("[EDITAR]\n1 - Nome\n2 - Preço\n0 - Voltar"); scanf("%hi", &op0); flush_input();
+                        switch(op0){
+                            case 1: printf("1. Editar nome (atual: %s): ", product[produto_a_editar].nomeproduto);
+                            scanf("%79[^\n]", editnome); flush_input();
+                            strcpy(product[produto_a_editar].nomeproduto, editnome);
+                            printf("[PRODUTO]: %s - [CÓDIGO]: %s - [PREÇO]: R$%.2f\n",
+                            product[produto_a_editar].nomeproduto, product[produto_a_editar].codigo, product[produto_a_editar].preco);
+                            break;
+                            case 2: printf("2. Editar preço (atual: R$%.2f): ", product[produto_a_editar].preco);
+                            scanf("%f", &editpreco); flush_input();
+                            product[produto_a_editar].preco=editpreco;
+                            break;
+                            case 0: break;
+                            default: puts("[OPÇÃO INVÁLIDA!]");
+                        }
+                    }
+                    break;
+                    case 4:
+                    puts("[SAINDO...]");
+                    return 0;
+                }
+            }while(op!=0);
             break;
             case 2:
             printf("2. Digite o e-mail: "); scanf("%79[^\n]", emailtmp); flush_input();
@@ -52,7 +108,7 @@ int main(){
                 break;
             }
             break;
-            case 0: puts("[SAINDO]"); return 0;
+            case 0: puts("[SAINDO...]"); return 0;
         }
     }while(opcao!=0);
     free(user);
@@ -91,6 +147,16 @@ int validaremail(struct usuario user[], char emailtmp[]){
         }
     }
     return 0;
+}
+int verificar_produto(struct produto product[], char codigotmp[]){
+    int *p=&produto_a_editar;
+    for(int i=0; i<quantidade_de_produtos; i++){
+        if(strcmp(product[i].codigo, codigotmp)==0){
+            *p=i;
+            return 0;
+        }
+    }
+    return 1;    
 }
 void flush_input(){
     int c;
