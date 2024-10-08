@@ -20,6 +20,8 @@ int main(){
     int validarusername(struct usuario user[], char usernametmp[]);
     int validaremail(struct usuario user[], char emailtmp[]);
     int validarsenha(struct usuario user[], char senhatmp[]);
+    int compararcodigo(struct produto product[], char editcodigo[]);
+    void excluir_produto(struct produto **product, int *quantidade_de_produtos, char codigotmp[]);
 //Login e senha pré-definidos do programa:
     strcpy(user[0].nome, "Elton Caio Vieira de Lima"); strcpy(user[0].username, "eltonlima");
     strcpy(user[0].email, "elton@lima"); strcpy(user[0].senha, "0123456789");
@@ -56,7 +58,18 @@ int main(){
                 puts("[SISTEMA]\n1 - Cadastrar\n2 - Listar\n3 - Editar\n4 - Excluir\n0 - Sair");
                 scanf("%hi", &op); flush_input();
                 switch(op){
-                    case 1:
+                    case 1: quantidade_de_produtos++;
+                    product = (struct produto*) realloc(product, quantidade_de_produtos * sizeof(struct produto));
+                    puts("[CADASTRAR NOVO PRODUTO]\nDigite o nome do produto: ");
+                    scanf("%79[^\n]", product[quantidade_de_produtos-1].nomeproduto); flush_input();
+                    puts("Crie um código para identificar o produto (4 caracteres, sem espaço):");
+                    scanf("%4[^\n]", codigotmp);
+                    do{
+                        puts("[CÓDIGO JÁ EM USO!]\nTente novamente!");
+                        scanf("%4[^\n]", codigotmp); flush_input();
+                    }while(compararcodigo(product, codigotmp)!=0);
+                    strcpy(product[quantidade_de_produtos-1].codigo, codigotmp);
+                    printf("Preço do produto: "); scanf("%f", &product[quantidade_de_produtos-1].preco);
                     break;
                     case 2:
                     puts("[LISTA DE PRODUTOS]");
@@ -90,7 +103,11 @@ int main(){
                     }
                     break;
                     case 4:
-                    puts("[SAINDO...]");
+                    puts("[EXCLUIR]\nDigite o código do produto:");
+                    scanf("%4[^\n]", codigotmp); flush_input();
+                    excluir_produto(&product, &quantidade_de_produtos, codigotmp);
+                    break;
+                    case 0: puts("[SAINDO...]");
                     return 0;
                 }
             }while(op!=0);
@@ -137,12 +154,20 @@ int validaremail(struct usuario user[], char emailtmp[]){
     for(int i=0; i<x; i++){
         if(emailtmp[i]=='@'){
             break;
-        }else if(i==x){
+        }else if(i==(x-1)){
             return 2;
         }
     }
     for(int i=0; i<3; i++){
         if(strcmp(user[i].email, emailtmp)==0){
+            return 1;
+        }
+    }
+    return 0;
+}
+int compararcodigo(struct produto product[], char codigotmp[]){
+    for(int i=0; i<quantidade_de_produtos; i++){
+        if(strcmp(product[i].codigo, codigotmp)==0){
             return 1;
         }
     }
@@ -161,4 +186,22 @@ int verificar_produto(struct produto product[], char codigotmp[]){
 void flush_input(){
     int c;
     while((c=getchar())!='\n'&&c!=EOF);
+}
+void excluir_produto(struct produto **product, int *quantidade_de_produtos, char codigotmp[]){
+    int encontrado = 0;
+    for (int i=0; i<*quantidade_de_produtos; i++){
+        if (strcmp((*product)[i].codigo, codigotmp)==0){
+            encontrado = 1;
+            for (int j = i; j<*quantidade_de_produtos-1; j++) {
+                (*product)[j]=(*product)[j+1];
+            }
+            (*quantidade_de_produtos)--;
+            *product = (struct produto*)realloc(*product, *quantidade_de_produtos * sizeof(struct produto));
+            puts("[PRODUTO EXCLUÍDO COM SUCESSO!]");
+            break;
+        }
+    }
+    if(!encontrado){
+        puts("[CÓDIGO DO PRODUTO NÃO ENCONTRADO!]");
+    }
 }
